@@ -12,5 +12,20 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          'primary': '#635fc7',
+          'secondary': '#828fa3',
+          'base-100': '#ffffff', // Light theme background
+          'base-content': '#1f2937', // Light theme text
+        },
+      },
+      'dark', // DaisyUI built-in dark theme
+    ],
+  },
 }

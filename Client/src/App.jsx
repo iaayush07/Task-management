@@ -10,7 +10,6 @@ function App() {
         <Sidebar />
         <div className='flex-grow'>
         <Header />
-          
           <main>
 
           </main>

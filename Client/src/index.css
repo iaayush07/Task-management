@@ -21,7 +21,7 @@ body {
   width: 250px;
   border-right: 1px solid #e4ebfa;
 }
-.navbar li:hover{
+.navbar li:not(:last-child):hover{
   cursor: pointer;
   color: #635fc7 !important;
   background-color: rgba(99,95,199, 0.2);
@@ -31,6 +31,10 @@ body {
 .navbar li.active{
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  color: #fff !important;
+  background-color: #635fc7 !important;
+}
+.navbar li.active:hover{
   color: #fff !important;
   background-color: #635fc7 !important;
 }
