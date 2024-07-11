@@ -11,7 +11,6 @@ function App() {
         <div className='flex-grow'>
         <Header />
           <main>
-
           </main>
         </div>
         
