@@ -6,8 +6,17 @@ function App() {
 
   return (
     <>
-      <Header/>
-      <Sidebar/>
+      <section className='flex h-full'>
+        <Sidebar />
+        <div className='flex-grow'>
+        <Header />
+          
+          <main>
+
+          </main>
+        </div>
+        
+      </section>
     </>
   )
 }
