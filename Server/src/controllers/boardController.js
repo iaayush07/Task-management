@@ -8,4 +8,5 @@ const boardController = async (req, res) => {
         console.log(err);
       }
 }
+// const addBoardController = async (req,res) => 
 module.exports = boardController;

@@ -14,20 +14,18 @@ const Sidebar = () => {
     <div className='sidebar pb-10 flex flex-col justify-between h-full pe-4'>
       <div className="logo">
         <h1 className='font-extrabold text-3xl px-5 py-3'>kanban</h1>
-        <div className='uppercase text-secondary text-sm px-5 py-3'>All boards (3)</div>
+        <div className='uppercase text-secondary text-sm px-5 py-3'>All boards ({boards.length})</div>
         <ul className=''>
-          <li className='py-2 text-secondary'>
-            <a href="" className='capitalize font-bold text-sm px-5 py-3'>
-              <span className='fa-solid fa-table-columns'></span>
-              <span className='ms-3'>Board 1</span>
-            </a>
-          </li>
-          <li className='py-2 text-secondary'>
-            <a href="" className='capitalize font-bold text-sm px-5 py-3'>Board 2</a>
-          </li>
-          <li className='py-2 text-secondary active'>
-            <a href="" className='capitalize font-bold text-sm px-5 py-3'>Board 3</a>
-          </li>
+          {
+            boards.map((board, index) => (
+              <li className='py-2 text-secondary'>
+                <a href="" className='capitalize font-bold text-sm px-5 py-3'>
+                  <span className='fa-solid fa-table-columns'></span>
+                  <span className='ms-3'>{board?.name}</span>
+                </a>
+              </li>
+            ))
+          }
         </ul>
         <a className="capitalize cursor-pointer text-primary font-bold text-sm px-5 py-3"
           onClick={() => document.getElementById('my_modal_2').showModal()}>

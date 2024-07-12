@@ -112,6 +112,9 @@ main {
 .board .column {
   width: 16.5rem;
 }
+.board .column:not(:first-child){
+  margin-left: 1.5rem;
+}
 .board .column .title {
   letter-spacing: 0.1rem;
 }

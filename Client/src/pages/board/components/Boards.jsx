@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import Card from '../../../shared/pages/Card'
 import { BoardContext } from './../utility/services/BoardService';
 
 const Boards = () => {
     const { boards } = useContext(BoardContext);
-    console.log("board===>" ,boards);
+    // console.log("board===>" ,boards);
     return (
         <React.Fragment>
             {

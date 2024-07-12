@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 const AddNewBoard = ({ id, onClose }) => {
     const [columns, setColumns] = useState(['']);
@@ -32,8 +33,20 @@ const AddNewBoard = ({ id, onClose }) => {
             return errors;
         },
         onSubmit: values => {
-            console.log(values);
-            onClose();
+            console.log("onsubmit called");
+            const boardData = {
+                name: values.boardName,
+                columns: columns.map(columnName => ({ name: columnName }))
+            };
+            console.log("anyyyyy =>",boardData);
+            axios.post('http://localhost:3000/api/boards/add', boardData)
+                .then(res => {
+                    console.log(res.data);
+                    onClose();
+                })
+                .catch(err => {
+                    console.log(err);
+            })
         }
     });
 

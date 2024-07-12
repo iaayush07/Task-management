@@ -3,7 +3,7 @@ import { BoardContext } from '../../../pages/board/utility/services/BoardService
 
 const Header = () => {
   const { boards } = useContext(BoardContext);
-  console.log("header ===>" ,boards);
+  // console.log("header ===>" ,boards);
   return (
     <header className='p-5 flex items-center justify-between'>
       <h2 className='font-bold text-xl'>Example Board 3</h2>
