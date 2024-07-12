@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import AddNewBoard from '../../../pages/modals/AddNewBoard'
 import ThemeController from '../../theme/ThemeController';
+import { BoardContext } from './../../../pages/board/utility/services/BoardService'
 
 const Sidebar = () => {
+  const { boards } = useContext(BoardContext);
+  console.log("sidebar===>", boards);
 
   const closeModal = () => {
     document.getElementById('my_modal_2').close();
@@ -27,7 +30,7 @@ const Sidebar = () => {
           </li>
         </ul>
         <a className="capitalize cursor-pointer text-primary font-bold text-sm px-5 py-3"
-         onClick={() => document.getElementById('my_modal_2').showModal()}>
+          onClick={() => document.getElementById('my_modal_2').showModal()}>
           <span className='fa-solid fa-table-columns'></span>
           <span className='ms-3'>+ Create New Board</span>
         </a>
@@ -41,7 +44,7 @@ const Sidebar = () => {
           </label>
           <span className='fa-solid fa-moon ms-4'></span>
         </div> */}
-        <ThemeController/>
+        <ThemeController />
         <div className='text-secondary px-5 py-3 font-bold cursor-pointer'>
           <span className='fa-sharp fa-solid fa-eye-slash'>
           </span>

@@ -106,3 +106,12 @@ input:checked + .slider:before {
 .error {
   color: #dc362e;
 }
+main {
+  background-color: #f4f7fd;
+}
+.board .column {
+  width: 16.5rem;
+}
+.board .column .title {
+  letter-spacing: 0.1rem;
+}
