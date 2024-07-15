@@ -7,7 +7,7 @@ const Sidebar = () => {
   const { boards, activeBoardId,setActiveBoard  } = useContext(BoardContext);
 
   const closeModal = () => {
-    document.getElementById('my_modal_2').close();
+    document.getElementById('add_new_board_modal').close();
   };
   return (
     <div className='sidebar pb-10 flex flex-col justify-between h-full pe-4'>
@@ -29,7 +29,7 @@ const Sidebar = () => {
           }
         </ul>
         <a className="capitalize cursor-pointer text-primary font-bold text-sm px-5 py-3"
-          onClick={() => document.getElementById('my_modal_2').showModal()}>
+          onClick={() => document.getElementById('add_new_board_modal').showModal()}>
           <span className='fa-solid fa-table-columns'></span>
           <span className='ms-3'>+ Create New Board</span>
         </a>
@@ -45,7 +45,7 @@ const Sidebar = () => {
         </div>
       </div>
       {/* modal */}
-      <AddNewBoard id="my_modal_2"
+      <AddNewBoard id="add_new_board_modal"
         title="Create New Board"
         content="Enter the details of the new board."
         onClose={closeModal} />
