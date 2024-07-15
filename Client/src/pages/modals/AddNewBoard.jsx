@@ -6,7 +6,7 @@ const AddNewBoard = ({ id, onClose }) => {
     const formik = useFormik({
         initialValues: {
             boardName: '',
-            columns: ['']
+            columns: [{ columnName: '' }]
         },
         validate: values => {
             const errors = {};
@@ -18,13 +18,13 @@ const AddNewBoard = ({ id, onClose }) => {
 
             // Validate columns
             const columnsErrors = values.columns.map(column => {
-                if (!column) {
-                    return 'Required';
+                if (!column.columnName) {
+                    return { columnName: 'Required' };
                 }
-                return '';
+                return null;
             });
 
-            if (columnsErrors.some(error => error !== '')) {
+            if (columnsErrors.some(error => error !== null)) {
                 errors.columns = columnsErrors;
             }
 
@@ -33,8 +33,10 @@ const AddNewBoard = ({ id, onClose }) => {
         onSubmit: values => {
             console.log("Form submit called");
             const boardData = {
-                name: values.boardName,
-                columns: values.columns.map(columnName => ( columnName ))
+                boardName: values.boardName,
+                columns: values.columns.map(column => ({
+                    columnName: column.columnName,
+                }))
             };
             console.log("Board data =>", boardData);
             axios({
@@ -52,10 +54,10 @@ const AddNewBoard = ({ id, onClose }) => {
     });
 
     const addColumn = () => {
-        formik.setFieldValue('columns', [...formik.values.columns, '']);
+        formik.setFieldValue('columns', [...formik.values.columns, { columnName: '' }]);
     };
 
-    const removeColumn = index => {
+    const removeColumn = (index) => {
         const newColumns = formik.values.columns.filter((_, colIndex) => colIndex !== index);
         formik.setFieldValue('columns', newColumns);
     };
@@ -85,17 +87,17 @@ const AddNewBoard = ({ id, onClose }) => {
                     <label htmlFor="board-columns" className="mt-4 capitalize block cursor-pointer text-secondary font-bold text-xs">
                         Board Columns
                     </label>
-                    {formik.values.columns.map((_, index) => (
+                    {formik.values.columns.map((column, index) => (
                         <React.Fragment key={index}>
                             <div className="flex">
                                 <input
                                     type="text"
-                                    name={`columns[${index}]`}
+                                    name={`columns[${index}].columnName`}
                                     placeholder="e.g To Do"
                                     className="input h-9 mt-1 input-bordered w-full"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
-                                    value={formik.values.columns[index]}
+                                    value={formik.values.columns[index].columnName}
                                 />
                                 <span
                                     className="fa solid flex items-center text-2xl fa-xmark ms-3 cursor-pointer"
@@ -103,7 +105,7 @@ const AddNewBoard = ({ id, onClose }) => {
                                 ></span>
                             </div>
                             {formik.touched.columns && formik.touched.columns[index] && formik.errors.columns && formik.errors.columns[index] ? (
-                                <div className="mt-1 error">{formik.errors.columns[index]}</div>
+                                <div className="mt-1 error">{formik.errors.columns[index].columnName}</div>
                             ) : null}
                         </React.Fragment>
                     ))}

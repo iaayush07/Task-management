@@ -20,15 +20,15 @@ const Sidebar = () => {
               <li className={`py-2 ${board._id === activeBoardId ? 'active' : ''} text-secondary`} 
                 key={index}
                 >
-                <a href="" className='capitalize font-bold text-sm px-5 py-3' onClick={() => setActiveBoard(board._id)}>
+                <a href="Javascript:void(0)" className='capitalize font-bold text-sm px-5 py-3' onClick={() => setActiveBoard(board._id)}>
                   <span className='fa-solid fa-table-columns'></span>
-                  <span className='ms-3'>{board?.name}</span>
+                  <span className='ms-3'>{board?.boardName}</span>
                 </a>
               </li>
             ))
           }
         </ul>
-        <a className="capitalize cursor-pointer text-primary font-bold text-sm px-5 py-3"
+        <a className="capitalize cursor-pointer text-primary font-bold text-sm px-5 py-3 block mt-2"
           onClick={() => document.getElementById('add_new_board_modal').showModal()}>
           <span className='fa-solid fa-table-columns'></span>
           <span className='ms-3'>+ Create New Board</span>

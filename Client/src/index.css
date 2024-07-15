@@ -22,7 +22,7 @@ body {
   min-width: 250px;
   border-right: 1px solid #e4ebfa;
 }
-li:not(:last-child):hover{
+li:hover{
   cursor: pointer;
   color: #635fc7 !important;
   background-color: rgba(99,95,199, 0.2);
@@ -121,4 +121,7 @@ main {
 }
 .add-column-wrapper {
   background-color: #f0f3fc;
+}
+.card:hover .card-title {
+  color: #635fc7;
 }

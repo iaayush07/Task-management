@@ -17,10 +17,10 @@ app.use(boardRouter);
 
 app.post('/api/boards/add', async (req, res) => {
   try {
-    const { name, columns } = req.body;
-    const newBoard = new Board({ name, columns });
+    const { boardName, columns } = req.body;
+    const newBoard = new Board({ boardName, columns });
     await newBoard.save();
-    console.log(newBoard);
+    res.status(200).json(newBoard)
   } catch (error) {
     console.log(error);;
   }

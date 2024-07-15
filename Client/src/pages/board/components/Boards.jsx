@@ -15,8 +15,13 @@ const Boards = () => {
                                 <React.Fragment key={index}>
                                     <div className="column" >
                                         <div className="title text-secondary text-sm font-bold">
-                                            {column}
+                                            {column.columnName} ({column.tasks.length})
                                         </div>
+                                        {
+                                            column?.tasks?.map((task, index)=> (
+                                                <Card task={task} key={index}/>
+                                            ))
+                                        }
                                     </div>
                                 </React.Fragment>
                             ))
