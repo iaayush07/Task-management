@@ -5,6 +5,7 @@
 html,
 body {
   height: 100%;
+  overflow: hidden;
   margin: 0;
   font-family: "Inter", sans-serif;
   --mantine-font-family: "Inter", sans-serif;
@@ -18,23 +19,23 @@ body {
   box-sizing: border-box;
 }
 .sidebar{
-  width: 250px;
+  min-width: 250px;
   border-right: 1px solid #e4ebfa;
 }
-.navbar li:not(:last-child):hover{
+li:not(:last-child):hover{
   cursor: pointer;
   color: #635fc7 !important;
   background-color: rgba(99,95,199, 0.2);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.navbar li.active{
+li.active{
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   color: #fff !important;
   background-color: #635fc7 !important;
 }
-.navbar li.active:hover{
+li.active:hover{
   color: #fff !important;
   background-color: #635fc7 !important;
 }
@@ -117,4 +118,7 @@ main {
 }
 .board .column .title {
   letter-spacing: 0.1rem;
+}
+.add-column-wrapper {
+  background-color: #f0f3fc;
 }

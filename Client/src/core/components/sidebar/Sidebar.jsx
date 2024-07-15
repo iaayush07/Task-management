@@ -4,8 +4,7 @@ import ThemeController from '../../theme/ThemeController';
 import { BoardContext } from './../../../pages/board/utility/services/BoardService'
 
 const Sidebar = () => {
-  const { boards } = useContext(BoardContext);
-  console.log("sidebar===>", boards);
+  const { boards, activeBoardId,setActiveBoard  } = useContext(BoardContext);
 
   const closeModal = () => {
     document.getElementById('my_modal_2').close();
@@ -18,8 +17,10 @@ const Sidebar = () => {
         <ul className=''>
           {
             boards.map((board, index) => (
-              <li className='py-2 text-secondary'>
-                <a href="" className='capitalize font-bold text-sm px-5 py-3'>
+              <li className={`py-2 ${board._id === activeBoardId ? 'active' : ''} text-secondary`} 
+                key={index}
+                >
+                <a href="" className='capitalize font-bold text-sm px-5 py-3' onClick={() => setActiveBoard(board._id)}>
                   <span className='fa-solid fa-table-columns'></span>
                   <span className='ms-3'>{board?.name}</span>
                 </a>
@@ -34,14 +35,6 @@ const Sidebar = () => {
         </a>
       </div>
       <div className=''>
-        {/* <div className="mode-wrapper flex justify-center items-center ms-5 p-3 rounded">
-          <span className='fa-solid fa-sun'></span>
-          <label className="switch ms-4">
-            <input type="checkbox" value="synthwave" className="toggle theme-controller" />
-            <span className="slider round"></span>
-          </label>
-          <span className='fa-solid fa-moon ms-4'></span>
-        </div> */}
         <ThemeController />
         <div className='text-secondary px-5 py-3 font-bold cursor-pointer'>
           <span className='fa-sharp fa-solid fa-eye-slash'>

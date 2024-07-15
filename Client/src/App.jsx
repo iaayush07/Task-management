@@ -10,11 +10,11 @@ function App() {
     <>
       <BoardProvider>
 
-        <section className='flex h-full'>
+        <section className='flex h-full overflow-hidden'>
           <Sidebar />
-          <div className='flex flex-col flex-grow'>
+          <div className='flex flex-col flex-grow overflow-hidden'>
             <Header />
-            <main className='flex flex-grow px-5 py-3'>
+            <main className='flex flex-grow px-5 py-3 overflow-auto'>
               <Boards />
             </main>
           </div>

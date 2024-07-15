@@ -3,23 +3,29 @@ import Card from '../../../shared/pages/Card'
 import { BoardContext } from './../utility/services/BoardService';
 
 const Boards = () => {
-    const { boards } = useContext(BoardContext);
-    // console.log("board===>" ,boards);
+    const { boards, activeBoardId, setActiveBoard } = useContext(BoardContext);
+    const activeBoard = boards.find(board => board._id === activeBoardId)
     return (
         <React.Fragment>
             {
                 boards?.length ? (
                     <div className='flex board'>
                         {
-                            boards?.map((board, index) => (
-                                <div className="column" key={index}>
-                                    <div className="title text-secondary text-sm font-bold">
-                                        {board?.name} ({board?.columns?.length})
+                            activeBoard?.columns.map((column, index) => (
+                                <React.Fragment key={index}>
+                                    <div className="column" >
+                                        <div className="title text-secondary text-sm font-bold">
+                                            {column}
+                                        </div>
                                     </div>
-                                    <Card board={board} />
-                                </div>
+                                </React.Fragment>
                             ))
                         }
+                        <div className="column">
+                            <div className="title text-secondary text-xl flex justify-center items-center h-full font-bold add-column-wrapper">
+                                + New column
+                            </div>
+                        </div>
                     </div>
                 ) : (<div className='flex flex-col flex-grow justify-center items-center'>
                     <p className='text-secondary text-xl font-semibold'>
