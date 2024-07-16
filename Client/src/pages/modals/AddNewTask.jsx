@@ -27,7 +27,13 @@ const AddNewTask = ({ id, onClose }) => {
             return errors;
         },
         onSubmit : values => {
-            console.log("form valuess ===>>>", values);
+            const taskData = {
+                taskName: values.taskName,
+                description: values.description,
+                subtasks: values.subtasks
+            }
+            const columnName = activeBoard.columns.findIndex(column => column.columnName === values.selectedColumn);
+            console.log(columnName);
         }
     });
     const addNewSubtask = () => {
