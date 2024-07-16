@@ -18,9 +18,9 @@ const Sidebar = () => {
           {
             boards.map((board, index) => (
               <li className={`py-2 ${board._id === activeBoardId ? 'active' : ''} text-secondary`} 
-                key={index}
+                key={index} onClick={() => setActiveBoard(board._id)}
                 >
-                <a href="Javascript:void(0)" className='capitalize font-bold text-sm px-5 py-3' onClick={() => setActiveBoard(board._id)}>
+                <a href="Javascript:void(0)" className='capitalize font-bold text-sm px-5 py-3'>
                   <span className='fa-solid fa-table-columns'></span>
                   <span className='ms-3'>{board?.boardName}</span>
                 </a>

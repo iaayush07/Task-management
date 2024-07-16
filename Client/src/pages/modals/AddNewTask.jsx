@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { BoardContext } from '../board/utility/services/BoardService';
 
 const AddNewTask = ({ id, onClose }) => {
-    const { boards, activeBoardId } = useContext(BoardContext);
+    const { boards, activeBoardId, updateBoard } = useContext(BoardContext);
     const activeBoard = boards.find(board => board._id === activeBoardId);
     // console.log(activeBoard);
     const formik = useFormik({
@@ -26,14 +26,23 @@ const AddNewTask = ({ id, onClose }) => {
             }
             return errors;
         },
-        onSubmit : values => {
-            const taskData = {
-                taskName: values.taskName,
-                description: values.description,
-                subtasks: values.subtasks
+        onSubmit: values => {
+            const selectedColumn = activeBoard.columns.find(column => column.columnName === values.selectedColumn);
+            console.log(selectedColumn);
+
+            if (selectedColumn) {
+                selectedColumn.tasks.push({
+                    taskName: values.taskName,
+                    description: values.description,
+                    subtasks: values.subtasks
+                });
             }
-            const columnName = activeBoard.columns.findIndex(column => column.columnName === values.selectedColumn);
-            console.log(columnName);
+
+            const updatedColumns = activeBoard.columns.map(column =>
+                column.columnName === values.selectedColumn ? selectedColumn : column
+            );
+            updateBoard(activeBoardId, { columns: updatedColumns });
+            onClose();
         }
     });
     const addNewSubtask = () => {

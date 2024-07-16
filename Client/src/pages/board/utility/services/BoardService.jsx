@@ -40,12 +40,26 @@ export const BoardProvider = ({ children }) => {
       });
   }
 
+  const updateBoard = (boardId, updatedData) => {
+    axios({
+      method: 'put',
+      url: `http://localhost:3000/api/boards/${boardId}`,
+      data: updatedData
+    }).then(res => {
+      console.log("update call", res);
+      getBoards();
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  };
+
   useEffect(() => {
     getBoards();
   }, []);
 
   return (
-    <BoardContext.Provider value={{ boards, activeBoardId, setActiveBoard, addBoardForm }}>
+    <BoardContext.Provider value={{ boards, activeBoardId, setActiveBoard, addBoardForm, updateBoard }}>
       {children}
     </BoardContext.Provider>
   );

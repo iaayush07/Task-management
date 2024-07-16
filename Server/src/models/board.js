@@ -1,19 +1,5 @@
 const mongoose = require('mongoose');
- 
-const subtaskSchema = new mongoose.Schema ({
-  subtaskName : {type : String}
-})
- 
-const taskSchema= new mongoose.Schema({
-  taskName : {type: String},
-  description : {type: String},
-  subtasks : [subtaskSchema],
-})
- 
-const columnSchema = new mongoose.Schema({
-  columnName: { type : String},
-  tasks : [taskSchema]
-})
+const columnSchema = require('./column')
  
 const boardSchema = new mongoose.Schema({
   boardName: { type: String },
