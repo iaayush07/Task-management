@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useFormik } from 'formik';
-import axios from 'axios';
+import { BoardContext } from '../board/utility/services/BoardService';
 
 const AddNewBoard = ({ id, onClose }) => {
+    const { addBoardForm } = useContext(BoardContext);
     const formik = useFormik({
         initialValues: {
             boardName: '',
@@ -38,18 +39,10 @@ const AddNewBoard = ({ id, onClose }) => {
                     columnName: column.columnName,
                 }))
             };
+            addBoardForm(boardData);
             console.log("Board data =>", boardData);
-            axios({
-                method: 'post',
-                url: 'http://localhost:3000/api/boards/add',
-                data: boardData
-            }).then(res=> {
-                console.log("post call", res);
-                onClose();
-            })
-            .catch(err => {
-                console.error("Post call error:", err.response ? err.response.data : err.message);
-            });
+            // TODO : make it conditionally if successfully get response
+            onClose();
         }
     });
 

@@ -27,7 +27,7 @@ const Boards = () => {
                             ))
                         }
                         <div className="column">
-                            <div className="title text-secondary text-xl flex justify-center items-center h-full font-bold add-column-wrapper">
+                            <div className="title cursor-pointer text-secondary text-xl flex justify-center items-center h-full font-bold add-column-wrapper">
                                 + New column
                             </div>
                         </div>

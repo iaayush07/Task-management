@@ -12,7 +12,7 @@ const Header = () => {
   const activeBoard = boards.find(board => board._id === activeBoardId)
   return (
     <header className='p-5 flex items-center justify-between'>
-      <h2 className='font-bold text-xl'>{activeBoard?.boardName}</h2>
+      <h2 className='font-bold capitalize text-xl'>{activeBoard?.boardName}</h2>
       <div>
         <button className="bg-primary font-bold py-2 px-6 text-white rounded-3xl"
         onClick={() => document.getElementById('add_new_task_modal').showModal()}>

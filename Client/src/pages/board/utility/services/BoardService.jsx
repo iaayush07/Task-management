@@ -19,20 +19,33 @@ export const BoardProvider = ({ children }) => {
         console.log(err);
       });
   };
-  
+
 
   const setActiveBoard = (boardId) => {
-    // debugger
     setActiveBoardId(boardId);
-    console.log(`Active board ID changed to: ${boardId}`);
+    // console.log(`Active board ID changed to: ${boardId}`);
   };
+  const addBoardForm = (boardData) => {
+    axios({
+      method: 'post',
+      url: 'http://localhost:3000/api/boards/add',
+      data: boardData
+    }).then(res => {
+      // console.log("post call", res);
+      getBoards();
+      setActiveBoardId(res.data._id)
+    })
+      .catch(err => {
+        console.error("Post call error:", err.response ? err.response.data : err.message);
+      });
+  }
 
   useEffect(() => {
     getBoards();
   }, []);
 
   return (
-    <BoardContext.Provider value={{ boards, activeBoardId, setActiveBoard }}>
+    <BoardContext.Provider value={{ boards, activeBoardId, setActiveBoard, addBoardForm }}>
       {children}
     </BoardContext.Provider>
   );

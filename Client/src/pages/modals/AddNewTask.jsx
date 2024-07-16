@@ -1,26 +1,47 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useFormik } from 'formik';
+import { BoardContext } from '../board/utility/services/BoardService';
 
 const AddNewTask = ({ id, onClose }) => {
+    const { boards, activeBoardId } = useContext(BoardContext);
+    const activeBoard = boards.find(board => board._id === activeBoardId);
+    // console.log(activeBoard);
     const formik = useFormik({
         initialValues: {
             taskName: '',
             description: '',
-            subtasks: [{ subtaskName: '' }]
+            subtasks: [{ subtaskName: '' }],
+            selectedColumn: ''
+        },
+        validate: values => {
+            const errors = {};
+            if (!values.taskName) {
+                errors.taskName = 'Required';
+            } else if (values.taskName.length > 20) {
+                errors.taskName = 'Title must be 20 characters or less';
+            }
+
+            if (!values.selectedColumn) {
+                errors.selectedColumn = 'Required';
+            }
+            return errors;
+        },
+        onSubmit : values => {
+            console.log("form valuess ===>>>", values);
         }
-    })
-    const addNewSubtask = () =>  {
-        formik.setFieldValue('subtasks', [...formik.values.subtasks, {subtaskName : ''}])
+    });
+    const addNewSubtask = () => {
+        formik.setFieldValue('subtasks', [...formik.values.subtasks, { subtaskName: '' }])
     }
     const removeSubtask = (index) => {
-        const newSubtasksColumn = formik.values.subtasks.filter((_, i)=> i !== index);
+        const newSubtasksColumn = formik.values.subtasks.filter((_, i) => i !== index);
         formik.setFieldValue('subtasks', newSubtasksColumn)
     }
-    console.log(formik.values);
+    // console.log(formik.errors);
     return (
         <dialog id={id} className="modal">
             <div className="modal-box p-4">
-                <form>
+                <form onSubmit={formik.handleSubmit}>
                     <h3 className="font-bold text-lg capitalize">Add new Task</h3>
                     <label htmlFor="task-name" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">
                         Title
@@ -32,7 +53,13 @@ const AddNewTask = ({ id, onClose }) => {
                         name="taskName"
                         className="input h-9 mt-1 input-bordered w-full"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.taskName}
                     />
+                    {formik.touched?.taskName && formik.errors?.taskName ? (
+                        <div className="mt-1 error">{formik.errors?.taskName}</div>
+                    ) : null}
+
                     <label htmlFor="task-description" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">
                         Description(Optional)
                     </label>
@@ -43,6 +70,8 @@ const AddNewTask = ({ id, onClose }) => {
                         name="description"
                         className="input h-9 mt-1 input-bordered w-full"
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.description}
                     />
                     <label htmlFor="task-subtask" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">
                         Subtasks
@@ -57,10 +86,12 @@ const AddNewTask = ({ id, onClose }) => {
                                         placeholder="e.g To Do"
                                         className="input h-9 mt-1 input-bordered w-full"
                                         onChange={formik.handleChange}
+                                        onBlur={formik.handleBlur}
+                                        value={formik.values.subtasks[index].subtaskName}
                                     />
                                     <span
                                         className="fa solid flex items-center text-2xl fa-xmark ms-3 cursor-pointer"
-                                        onClick={()=>removeSubtask(index)}
+                                        onClick={() => removeSubtask(index)}
                                     ></span>
                                 </div>
                             </React.Fragment>
@@ -76,11 +107,22 @@ const AddNewTask = ({ id, onClose }) => {
                     <label htmlFor="task-status" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">
                         status
                     </label>
-                    <select className="select select-bordered mt-2 w-full">
-                        <option >Who shot first?</option>
-                        <option>Han Solo</option>
-                        <option>Greedo</option>
+                    <select
+                        className="select select-bordered mt-2 w-full"
+                        name="selectedColumn"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.selectedColumn}>
+                        <option value="" disabled>Select column</option>
+                        {
+                            activeBoard?.columns?.map((column, index) => (
+                                <option key={index} value={column.columnName}>{column.columnName}</option>
+                            ))
+                        }
                     </select>
+                    {formik.touched?.selectedColumn && formik.errors?.selectedColumn ? (
+                        <div className="mt-1 error">{formik.errors?.selectedColumn}</div>
+                    ) : null}
                     <button
                         className="mt-2 min-h-9 py-1 px-3 w-full size-3 rounded-full capitalize btn btn-primary"
                         type="submit"
