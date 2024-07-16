@@ -3,7 +3,7 @@ import Card from '../../../shared/pages/Card'
 import { BoardContext } from './../utility/services/BoardService';
 
 const Boards = () => {
-    const { boards, activeBoardId, setActiveBoard } = useContext(BoardContext);
+    const { boards, activeBoardId } = useContext(BoardContext);
     const activeBoard = boards.find(board => board._id === activeBoardId)
     return (
         <React.Fragment>
@@ -31,7 +31,9 @@ const Boards = () => {
                             ))
                         }
                         <div className="column">
-                            <div className="title cursor-pointer text-secondary text-xl flex justify-center items-center h-full font-bold add-column-wrapper">
+                            <div 
+                                className="title cursor-pointer text-secondary text-xl flex justify-center items-center h-full font-bold add-column-wrapper"
+                                >
                                 + New column
                             </div>
                         </div>

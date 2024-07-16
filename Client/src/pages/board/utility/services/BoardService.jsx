@@ -54,12 +54,24 @@ export const BoardProvider = ({ children }) => {
     });
   };
 
+  const clearBoard = (boardId, closeModal) => {
+    axios({
+      method: 'put',
+      url: `http://localhost:3000/api/boards/${boardId}/clear`
+    }).then(res=> {
+      closeModal();
+      getBoards();
+    }).catch(err=> {
+      console.log(err);
+    })
+  }
+
   useEffect(() => {
     getBoards();
   }, []);
 
   return (
-    <BoardContext.Provider value={{ boards, activeBoardId, setActiveBoard, addBoardForm, updateBoard }}>
+    <BoardContext.Provider value={{ boards, activeBoardId, clearBoard, setActiveBoard, addBoardForm, updateBoard }}>
       {children}
     </BoardContext.Provider>
   );

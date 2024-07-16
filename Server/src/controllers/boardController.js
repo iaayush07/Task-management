@@ -35,3 +35,15 @@ exports.updateBoard = async (req, res) => {
         res.status(500).send(err.message);
     }
 };
+
+//Clear board 
+exports.clearBoard = async (req, res) => {
+    try {
+        const board = await Board.findById(req.params.id);
+        board.columns = [];
+        await board.save();
+        res.status(200).send(board)
+    } catch(err) {
+        res.status(500).send(err.message);
+    }
+}
