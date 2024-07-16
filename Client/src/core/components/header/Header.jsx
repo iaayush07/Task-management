@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { BoardContext } from '../../../pages/board/utility/services/BoardService'
 import AddNewTask from './../../../pages/modals/AddNewTask';
 
@@ -15,15 +15,25 @@ const Header = () => {
       <h2 className='font-bold capitalize text-xl'>{activeBoard?.boardName}</h2>
       <div>
         <button className="bg-primary font-bold py-2 px-6 text-white rounded-3xl"
-        onClick={() => document.getElementById('add_new_task_modal').showModal()}>
+          onClick={() => document.getElementById('add_new_task_modal').showModal()}>
           + Add new task
         </button>
-        <span className='ms-3 fa-solid fa-ellipsis-vertical cursor-pointer'></span>
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button">
+            <span className='ms-3 fa-solid fa-ellipsis-vertical cursor-pointer'></span>
+          </div>
+          <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 mt-7 p-2 shadow">
+            <li><div className='p-2'>Edit Board</div></li>
+            <li><div className='p-2'>Clear Board</div></li>
+            <li><div className='p-2'>Delete Board</div></li>
+            <li><div className='p-2'>Reset Board</div></li>
+          </ul>
+        </div>
       </div>
       <AddNewTask id="add_new_task_modal"
         title="Create New Task"
         content="Enter the details of the new task."
-        onClose={closeModal}/>
+        onClose={closeModal} />
     </header>
   )
 }

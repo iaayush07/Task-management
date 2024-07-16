@@ -22,20 +22,20 @@ body {
   min-width: 250px;
   border-right: 1px solid #e4ebfa;
 }
-li:hover{
+.sidebar li:hover{
   cursor: pointer;
   color: #635fc7 !important;
   background-color: rgba(99,95,199, 0.2);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-li.active{
+.sidebar li.active{
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   color: #fff !important;
   background-color: #635fc7 !important;
 }
-li.active:hover{
+.sidebar li.active:hover{
   color: #fff !important;
   background-color: #635fc7 !important;
 }
@@ -125,3 +125,25 @@ main {
 .card:hover .card-title {
   color: #635fc7;
 }
+.dropdown-content.menu li div:hover{
+  background-color: transparent !important;
+  color: #000000 !important;
+  font-weight: 500;
+}
+/* .color {
+  height: 15px;
+  width: 15px;
+  flex-shrink: 0;
+}
+.color:nth-child(3n + 1){
+  background-color: #068c33;
+}
+.color:nth-child(3n + 2){
+  background-color: #205d83;
+}
+.color:nth-child(3n + 3){
+  background-color: #1b8ed0;
+}
+.color:nth-child(3n + 4){
+  background-color: #071d79;
+} */

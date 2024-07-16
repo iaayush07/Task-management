@@ -14,12 +14,16 @@ const Boards = () => {
                             activeBoard?.columns.map((column, index) => (
                                 <React.Fragment key={index}>
                                     <div className="column" >
-                                        <div className="title text-secondary text-sm font-bold">
-                                            {column.columnName} ({column.tasks.length})
+                                        <div className="flex items-center">
+                                            {/* <div className='me-2 rounded-full color'>
+                                            </div> */}
+                                            <div className="title text-secondary text-sm font-bold">
+                                                {column.columnName} ({column.tasks.length})
+                                            </div>
                                         </div>
                                         {
-                                            column?.tasks?.map((task, index)=> (
-                                                <Card task={task} key={index}/>
+                                            column?.tasks?.map((task, index) => (
+                                                <Card task={task} key={index} />
                                             ))
                                         }
                                     </div>
