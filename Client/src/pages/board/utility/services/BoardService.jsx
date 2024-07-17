@@ -54,7 +54,8 @@ export const BoardProvider = ({ children }) => {
     });
   };
 
-  const clearBoard = (boardId, closeModal) => {
+  const actionBoard = (boardId, closeModal, type) => {
+    console.log("Service ===>",type);
     axios({
       method: 'put',
       url: `http://localhost:3000/api/boards/${boardId}/clear`
@@ -71,7 +72,7 @@ export const BoardProvider = ({ children }) => {
   }, []);
 
   return (
-    <BoardContext.Provider value={{ boards, activeBoardId, clearBoard, setActiveBoard, addBoardForm, updateBoard }}>
+    <BoardContext.Provider value={{ boards, activeBoardId, actionBoard, setActiveBoard, addBoardForm, updateBoard }}>
       {children}
     </BoardContext.Provider>
   );
