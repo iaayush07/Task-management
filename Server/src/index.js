@@ -7,7 +7,7 @@ const app = express();
 const PORT = 3000;
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/task-management');
+mongoose.connect('mongodb://localhost:27017/tasks-management');
 app.use(cors());
 app.use(express.json());
 

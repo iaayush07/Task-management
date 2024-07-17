@@ -21,7 +21,7 @@ const ClearBoard = ({ id, closeClearBoardModal, actionType }) => {
                 {actionContent.content}
                 </p>
                 <div className="grid grid-cols-2 mt-3 gap-4">
-                    <button type='button' className='btn rounded-3xl btn-error px-5 text-white' onClick={() => actionBoard(activeBoardId, closeClearBoardModal, actionType)}>Clear</button>
+                    <button type='button' className='btn rounded-3xl btn-error px-5 text-white' onClick={() => actionBoard(activeBoardId, closeClearBoardModal, actionType)}>{actionContent.btnText}</button>
                     <button type='button' className='btn rounded-3xl btn-white px-5 text-white' onClick={closeClearBoardModal}>Cancel</button>
                 </div>
             </div>

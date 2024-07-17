@@ -47,3 +47,22 @@ exports.clearBoard = async (req, res) => {
         res.status(500).send(err.message);
     }
 }
+
+exports.deleteBoard = async (req, res)=> {
+    try {
+        const board = await Board.findById(req.params.id);
+        await board.deleteOne();
+        res.status(200).send(board)
+    }catch (err){
+        res.status(500).send(err.message);
+    }
+}
+
+exports.resetBoards = async (req, res) => {
+    try {
+        await Board.deleteMany({});
+        res.status(200).send({ message: 'All boards deleted' });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}

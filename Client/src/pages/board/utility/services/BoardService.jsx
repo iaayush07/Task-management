@@ -55,10 +55,30 @@ export const BoardProvider = ({ children }) => {
   };
 
   const actionBoard = (boardId, closeModal, type) => {
-    console.log("Service ===>",type);
+    let actionMethod;
+    let urlEndpoint;
+
+    switch (type) {
+      case 'clear':
+        actionMethod = 'put';
+        urlEndpoint = `http://localhost:3000/api/boards/${boardId}/clear`;
+        break;
+      case 'delete':
+        actionMethod = 'delete';
+        urlEndpoint = `http://localhost:3000/api/boards/${boardId}/delete`;
+        break;
+      case 'reset':
+        actionMethod = 'delete';
+        urlEndpoint = `http://localhost:3000/api/boards`;
+        break;
+      default:
+        console.error('Unknown action type:', type);
+        return;
+    }
+
     axios({
-      method: 'put',
-      url: `http://localhost:3000/api/boards/${boardId}/clear`
+      method: actionMethod,
+      url: urlEndpoint
     }).then(res=> {
       closeModal();
       getBoards();
