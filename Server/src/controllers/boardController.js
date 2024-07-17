@@ -23,13 +23,11 @@ exports.addBoard = async (req, res) => {
 //Update board by ID
 exports.updateBoard = async (req, res) => {
     try {
-        await Board.updateOne(
-            { _id: req.params.id },
+        const updatedBoard = await Board.findByIdAndUpdate(
+            req.params.id,
             { $set: req.body },
             { new: true }
         );
-        const updatedBoard = await Board.findById(req.params.id);
-        console.log(updatedBoard);
         res.status(200).send(updatedBoard);
     } catch (err) {
         res.status(500).send(err.message);

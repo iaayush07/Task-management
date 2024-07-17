@@ -5,7 +5,6 @@ import { BoardContext } from '../board/utility/services/BoardService';
 const AddNewTask = ({ id, onClose }) => {
     const { boards, activeBoardId, updateBoard } = useContext(BoardContext);
     const activeBoard = boards.find(board => board._id === activeBoardId);
-    // console.log(activeBoard);
     const formik = useFormik({
         initialValues: {
             taskName: '',

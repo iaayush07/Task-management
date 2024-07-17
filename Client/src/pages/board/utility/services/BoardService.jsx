@@ -42,17 +42,17 @@ export const BoardProvider = ({ children }) => {
 
   const updateBoard = (boardId, updatedData) => {
     axios({
-      method: 'put',
-      url: `http://localhost:3000/api/boards/${boardId}`,
-      data: updatedData
+        method: 'put',
+        url: `http://localhost:3000/api/boards/${boardId}`,
+        data: updatedData
     }).then(res => {
-      console.log("update call", res);
-      getBoards();
+        getBoards();
     })
     .catch(err => {
-      console.error(err);
+        console.error(err);
     });
-  };
+};
+
 
   const actionBoard = (boardId, closeModal, type) => {
     let actionMethod;

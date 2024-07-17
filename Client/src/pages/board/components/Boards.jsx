@@ -12,7 +12,8 @@ const Boards = () => {
     const openBoardModal = () => {
         setInitialFormValues({
             boardName: activeBoard?.boardName || '',
-            columns: activeBoard?.columns.map(column => ({ columnName: column.columnName })) || [{ columnName: '' }]
+            columns: activeBoard?.columns.map(column => ({ columnName: column.columnName })) || [{ columnName: '' }],
+            _id: activeBoardId
         });
         setModalOpen(true);
     };
@@ -35,7 +36,7 @@ const Boards = () => {
                         <React.Fragment key={index}>
                             <div className="column">
                                 <div className="flex items-center">
-                                    <div className="title text-secondary text-sm font-bold">
+                                    <div className="title capitalize text-secondary text-sm font-bold">
                                         {column.columnName} ({column.tasks.length})
                                     </div>
                                 </div>

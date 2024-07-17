@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { BoardContext } from '../board/utility/services/BoardService';
 
 const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
-    const { addBoardForm } = useContext(BoardContext);
+    const { addBoardForm, updateBoard  } = useContext(BoardContext);
 
     const formik = useFormik({
         initialValues: initialFormValues || {
@@ -34,14 +34,17 @@ const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
             return errors;
         },
         onSubmit: values => {
-            console.log("Form submit called");
             const boardData = {
                 boardName: values.boardName,
                 columns: values.columns.map(column => ({
                     columnName: column.columnName,
                 }))
             };
-            addBoardForm(boardData);
+            if (initialFormValues) {
+                updateBoard(initialFormValues._id, boardData);
+            } else {
+                addBoardForm(boardData);
+            }
             formik.resetForm();
             onClose();
         }
