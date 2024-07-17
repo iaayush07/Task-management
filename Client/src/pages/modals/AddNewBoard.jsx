@@ -1,14 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { BoardContext } from '../board/utility/services/BoardService';
 
-const AddNewBoard = ({ id, onClose }) => {
+const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
     const { addBoardForm } = useContext(BoardContext);
+
     const formik = useFormik({
-        initialValues: {
+        initialValues: initialFormValues || {
             boardName: '',
             columns: [{ columnName: '' }]
         },
+        enableReinitialize: true,
         validate: values => {
             const errors = {};
 
@@ -55,10 +57,10 @@ const AddNewBoard = ({ id, onClose }) => {
     };
 
     return (
-        <dialog id={id} className="modal">
+        <dialog id={id} className="modal" open={isModalOpen}>
             <div className="modal-box p-4">
                 <form onSubmit={formik.handleSubmit}>
-                    <h3 className="font-bold text-lg capitalize">Add new board</h3>
+                    <h3 className="font-bold text-lg capitalize">{initialFormValues ? 'Edit Board' : 'Add new board'}</h3>
                     <label htmlFor="board-name" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">
                         Board Name
                     </label>
@@ -112,7 +114,7 @@ const AddNewBoard = ({ id, onClose }) => {
                         className="mt-2 min-h-9 py-1 px-3 w-full size-3 rounded-full capitalize btn btn-primary"
                         type="submit"
                     >
-                        Create new board
+                        {initialFormValues ? 'Save Changes' : 'Create New Board'}
                     </button>
                 </form>
             </div>
