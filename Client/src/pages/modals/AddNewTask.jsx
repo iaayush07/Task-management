@@ -42,6 +42,7 @@ const AddNewTask = ({ id, onClose }) => {
                 column.columnName === values.selectedColumn ? selectedColumn : column
             );
             updateBoard(activeBoardId, { columns: updatedColumns });
+            formik.resetForm();
             onClose();
         }
     });

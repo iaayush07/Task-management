@@ -40,8 +40,7 @@ const AddNewBoard = ({ id, onClose }) => {
                 }))
             };
             addBoardForm(boardData);
-            console.log("Board data =>", boardData);
-            // TODO : make it conditionally if successfully get response
+            formik.resetForm();
             onClose();
         }
     });
