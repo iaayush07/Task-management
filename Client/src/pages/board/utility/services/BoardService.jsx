@@ -46,6 +46,7 @@ export const BoardProvider = ({ children }) => {
         url: `http://localhost:3000/api/boards/${boardId}`,
         data: updatedData
     }).then(res => {
+      console.log(res.data);
         getBoards();
     })
     .catch(err => {

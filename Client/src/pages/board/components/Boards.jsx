@@ -4,7 +4,7 @@ import { BoardContext } from './../utility/services/BoardService';
 import AddNewBoard from '../../modals/AddNewBoard';
 
 const Boards = () => {
-    const { boards, activeBoardId } = useContext(BoardContext);
+    const { boards, activeBoardId, updateBoard } = useContext(BoardContext);
     const activeBoard = boards.find(board => board._id === activeBoardId);
     const [isModalOpen, setModalOpen] = useState(false);
     const [initialFormValues, setInitialFormValues] = useState(null);
@@ -31,7 +31,6 @@ const Boards = () => {
 
     useEffect(() => {
         if (isModalOpen && initialFormValues) {
-            // console.log(initialFormValues);
         }
     }, [isModalOpen, initialFormValues]);
 
@@ -48,7 +47,7 @@ const Boards = () => {
                                     </div>
                                 </div>
                                 {column?.tasks?.map((task, index) => (
-                                    <Card activeBoard={activeBoard} task={task} key={index} />
+                                    <Card activeBoard={activeBoard} task={task} boardId={activeBoardId} key={index} updateBoard={updateBoard}/>
                                 ))}
                             </div>
                         </React.Fragment>

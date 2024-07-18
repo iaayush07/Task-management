@@ -1,15 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard }) => {
+const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard, handleTaskUpdate }) => {
     useEffect(() => {
         if (isTaskOpen && task && task.taskName) {
-            console.log(task, "manage task");
+            // console.log(task.subtasks[1]._id, "<=======manage task");
         }
     }, [isTaskOpen, task]);
 
     if (!isTaskOpen || !task || !task.taskName) {
         return null;
     }
+    const handleSubtaskStatus = (subtaskId) => {
+        const updatedSubtasks = task.subtasks.map(subtask => 
+            subtask._id === subtaskId ? { ...subtask, status: subtask.status === 'completed' ? 'pending' : 'completed' } : subtask
+        );
+        const updatedTask = { ...task, subtasks: updatedSubtasks };
+        handleTaskUpdate(updatedTask);
+    };
 
     return (
         <dialog id={id} className="modal" open={isTaskOpen}>
@@ -34,12 +41,14 @@ const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard 
                 <div>
                     <h4 className="font-bold text-secondary text-sm mt-3">Subtasks ( 2 of {task.subtasks?.length})</h4>
                     {task.subtasks.map((subtask, index) => (
-                        <div className="form-control subtask rounded p-2 bg-opacity-70 mt-2" key={index}>
-                            <label className="flex items-center cursor-pointer">
-                                <input type="checkbox" className="checkbox rounded checkbox-xs checkbox-primary" />
+                        // <div className="form-control subtask rounded p-2 bg-opacity-70 mt-2" key={index}>
+                            <label className="flex items-center cursor-pointer form-control subtask rounded p-2 bg-opacity-70 mt-2" key={index}>
+                                <input type="checkbox"
+                                checked={subtask.status === 'completed'}
+                                className="checkbox rounded checkbox-xs checkbox-primary" 
+                                onChange={()=>handleSubtaskStatus(subtask?._id)} />
                                 <span className="label-text text-sm text-secondary ms-3">{subtask.subtaskName}</span>
                             </label>
-                        </div>
                     ))}
                 </div>
                 <h4 className="font-bold text-secondary text-sm mt-3">Current Status</h4>

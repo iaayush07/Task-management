@@ -132,6 +132,7 @@ main {
 }
 .subtask {
   background-color: #f4f7fd;
+  flex-direction: row !important;
 }
 .subtask .checkbox:checked+.label-text {
   text-decoration: line-through;

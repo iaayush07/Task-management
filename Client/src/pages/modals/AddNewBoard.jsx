@@ -5,10 +5,6 @@ import { BoardContext } from '../board/utility/services/BoardService';
 const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
     const { addBoardForm, updateBoard  } = useContext(BoardContext);
 
-    useEffect(()=>{
-        console.log(initialFormValues, "initial form values");
-    },[isModalOpen, initialFormValues])
-
     const formik = useFormik({
         initialValues: initialFormValues ? {
             boardName: initialFormValues.boardName,
