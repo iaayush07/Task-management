@@ -27,7 +27,6 @@ const AddNewTask = ({ id, onClose }) => {
         },
         onSubmit: values => {
             const selectedColumn = activeBoard.columns.find(column => column.columnName === values.selectedColumn);
-            console.log(selectedColumn);
 
             if (selectedColumn) {
                 selectedColumn.tasks.push({
@@ -37,10 +36,7 @@ const AddNewTask = ({ id, onClose }) => {
                 });
             }
 
-            const updatedColumns = activeBoard.columns.map(column =>
-                column.columnName === values.selectedColumn ? selectedColumn : column
-            );
-            updateBoard(activeBoardId, { columns: updatedColumns });
+            updateBoard(activeBoardId, activeBoard);
             formik.resetForm();
             onClose();
         }

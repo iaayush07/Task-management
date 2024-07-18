@@ -5,20 +5,30 @@ import { BoardContext } from '../board/utility/services/BoardService';
 const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
     const { addBoardForm, updateBoard  } = useContext(BoardContext);
 
+    useEffect(()=>{
+        console.log(initialFormValues, "initial form values");
+    },[isModalOpen, initialFormValues])
+
     const formik = useFormik({
-        initialValues: initialFormValues || {
+        initialValues: initialFormValues ? {
+            boardName: initialFormValues.boardName,
+            columns: initialFormValues.columns.map(column => ({
+                columnName: column.columnName,
+                tasks: column.tasks || []
+            }))
+        } : {
             boardName: '',
-            columns: [{ columnName: '' }]
+            columns: [{ columnName: '', tasks: [] }]
         },
         enableReinitialize: true,
         validate: values => {
             const errors = {};
-
+    
             // Validate board name
             if (!values.boardName) {
                 errors.boardName = 'Required';
             }
-
+    
             // Validate columns
             const columnsErrors = values.columns.map(column => {
                 if (!column.columnName) {
@@ -26,11 +36,11 @@ const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
                 }
                 return null;
             });
-
+    
             if (columnsErrors.some(error => error !== null)) {
                 errors.columns = columnsErrors;
             }
-
+    
             return errors;
         },
         onSubmit: values => {
@@ -38,6 +48,7 @@ const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
                 boardName: values.boardName,
                 columns: values.columns.map(column => ({
                     columnName: column.columnName,
+                    tasks: column.tasks
                 }))
             };
             if (initialFormValues) {
@@ -46,18 +57,20 @@ const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
                 addBoardForm(boardData);
             }
             formik.resetForm();
+            console.log(formik.initialValues, "formik");
             onClose();
         }
     });
-
+    
     const addColumn = () => {
-        formik.setFieldValue('columns', [...formik.values.columns, { columnName: '' }]);
+        formik.setFieldValue('columns', [...formik.values.columns, { columnName: '', tasks: [] }]);
     };
-
+    
     const removeColumn = (index) => {
         const newColumns = formik.values.columns.filter((_, colIndex) => colIndex !== index);
         formik.setFieldValue('columns', newColumns);
     };
+    
 
     return (
         <dialog id={id} className="modal" open={isModalOpen}>

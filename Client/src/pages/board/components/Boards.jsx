@@ -12,7 +12,14 @@ const Boards = () => {
     const openBoardModal = () => {
         setInitialFormValues({
             boardName: activeBoard?.boardName || '',
-            columns: activeBoard?.columns.map(column => ({ columnName: column.columnName })) || [{ columnName: '' }],
+            columns: activeBoard?.columns.map(column => ({ 
+                columnName: column.columnName,
+                tasks: column.tasks.map(task => ({
+                    taskName: task.taskName,
+                    description : task.description,
+                    subtasks : task.subtasks
+                }))
+            })) || [{ columnName: '', tasks: [] }],
             _id: activeBoardId
         });
         setModalOpen(true);
@@ -24,7 +31,7 @@ const Boards = () => {
 
     useEffect(() => {
         if (isModalOpen && initialFormValues) {
-            console.log(initialFormValues);
+            // console.log(initialFormValues);
         }
     }, [isModalOpen, initialFormValues]);
 
