@@ -130,3 +130,9 @@ main {
   color: #000000 !important;
   font-weight: 500;
 }
+.subtask {
+  background-color: #f4f7fd;
+}
+.subtask .checkbox:checked+.label-text {
+  text-decoration: line-through;
+}

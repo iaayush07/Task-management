@@ -48,7 +48,7 @@ const Boards = () => {
                                     </div>
                                 </div>
                                 {column?.tasks?.map((task, index) => (
-                                    <Card task={task} key={index} />
+                                    <Card activeBoard={activeBoard} task={task} key={index} />
                                 ))}
                             </div>
                         </React.Fragment>

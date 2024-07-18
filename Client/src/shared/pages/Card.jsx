@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ManageTasks from '../../pages/modals/ManageTasks';
 
-const Card = ({ task }) => {
+const Card = ({ task, activeBoard }) => {
     const [selectedTask, setSelectedTask] = useState(null);
     const [isTaskOpen, setIsTaskOpen] = useState(false);
 
@@ -20,7 +20,7 @@ const Card = ({ task }) => {
         <React.Fragment>
             <div className="card card-compact bg-base-100 mt-3 shadow-xl cursor-pointer" onClick={() => openManageTasksModal(task)}>
                 <div className="card-body">
-                    <h2 className="font-bold card-title text-base mb-0">{task.taskName}</h2>
+                    <h2 className="font-bold capitalize card-title text-base mb-0">{task.taskName}</h2>
                     <div className='text-secondary font-bold text-xs'>{task.subtasks.length} subtasks</div>
                 </div>
             </div>
@@ -29,6 +29,7 @@ const Card = ({ task }) => {
                 closeManageTasksModal={closeManageTasksModal}
                 task={selectedTask}
                 isTaskOpen={isTaskOpen}
+                activeBoard={activeBoard}
             />
         </React.Fragment>
     );

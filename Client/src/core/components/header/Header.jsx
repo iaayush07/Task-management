@@ -33,7 +33,7 @@ const Header = () => {
           <div tabIndex={0} role="button">
             <span className='ms-3 fa-solid fa-ellipsis-vertical cursor-pointer'></span>
           </div>
-          <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 mt-7 p-2 shadow">
+          <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded z-[1] w-32 mt-7 p-2 shadow">
             <li><div className='p-2'>Edit Board</div></li>
             <li><div className='p-2' onClick={() => openActionModal('clear')}>Clear Board</div></li>
             <li><div className='p-2' onClick={() => openActionModal('delete')}>Delete Board</div></li>
