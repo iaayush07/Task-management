@@ -62,7 +62,7 @@ const Card = ({ task, activeBoard, boardId, updateBoard }) => {
 
     return (
         <React.Fragment>
-            <div className="card card-compact bg-base-100 mt-3 shadow-md hover:shadow-xl rounded cursor-pointer" onClick={() => openManageTasksModal(task)}>
+            <div className="card card-compact mb-3 shadow-md hover:shadow-xl rounded cursor-pointer" onClick={() => openManageTasksModal(task)}>
                 <div className="card-body">
                     <h2 className="font-bold capitalize card-title text-base mb-0">{task.taskName}</h2>
                     <div className='text-secondary font-bold text-xs'>{task.subtasks.length} subtasks</div>

@@ -66,24 +66,25 @@ const Boards = () => {
                     <div className='flex board'>
                         {activeBoard?.columns.map((column) => (
                             <Droppable key={column.columnName} droppableId={column.columnName}>
-                                {(provided) => (
+                                {(provided, snapshot) => (
                                     <div
-                                        className="column"
+                                        className={`column px-2 ${snapshot.isDraggingOver ? 'bg-base-300' : ''}`}
                                         ref={provided.innerRef}
                                         {...provided.droppableProps}
                                     >
                                         <div className="flex items-center">
-                                            <div className="title capitalize text-secondary text-sm font-bold">
+                                            <div className="title capitalize text-secondary text-sm mb-3 font-bold">
                                                 {column.columnName} ({column.tasks.length})
                                             </div>
                                         </div>
                                         {column?.tasks?.map((task, index) => (
                                             <Draggable key={task._id} draggableId={task._id} index={index}>
-                                                {(provided) => (
+                                                {(provided,snapshot) => (
                                                     <div
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
+                                                        className={`${snapshot.isDragging ? 'bg-gray-300' : 'bg-base-100'}`}
                                                     >
                                                         <Card
                                                             activeBoard={activeBoard}
