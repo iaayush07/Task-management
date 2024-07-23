@@ -70,7 +70,7 @@ const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
 
     return (
         <dialog id={id} className="modal" open={isModalOpen}>
-            <div className="modal-box p-4">
+            <div className="modal-box rounded p-4">
                 <form onSubmit={formik.handleSubmit}>
                     <h3 className="font-bold text-lg capitalize">{initialFormValues ? 'Edit Board' : 'Add new board'}</h3>
                     <label htmlFor="board-name" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">

@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ManageTasks from '../../pages/modals/ManageTasks';
 
 const Card = ({ task, activeBoard, boardId, updateBoard }) => {
     const [selectedTask, setSelectedTask] = useState(null);
     const [isTaskOpen, setIsTaskOpen] = useState(false);
     const [taskColumn, setTaskColumn] = useState('');
-    const [updatedBoardData, setUpdatedBoardData] = useState('');
+    const [updatedBoardData, setUpdatedBoardData] = useState(null);
 
     const handleTaskUpdate = (updatedTask) => {
         setSelectedTask(updatedTask);
+        console.log(selectedTask);
     };
 
     const handleColumnChange = (taskId, newColumnName) => {
@@ -17,42 +18,39 @@ const Card = ({ task, activeBoard, boardId, updateBoard }) => {
         );
         const newColumn = activeBoard.columns.find(column => column.columnName === newColumnName);
 
-        if (currentColumn !== newColumn) {
-            const updatedCurrentColumn = {
-                ...currentColumn,
-                tasks: currentColumn.tasks.filter(t => t._id !== taskId)
-            };
+        const updatedCurrentColumn = {
+            ...currentColumn,
+            tasks: currentColumn.tasks.filter(t => t._id !== taskId)
+        };
 
-            const updatedNewColumn = {
-                ...newColumn,
-                tasks: [...newColumn.tasks, { ...selectedTask, columnName: newColumnName }]
-            };
+        const updatedNewColumn = {
+            ...newColumn,
+            tasks: [...newColumn.tasks, { ...selectedTask, columnName: newColumnName }]
+        };
 
-            const updatedBoardDataa = {
-                columns: activeBoard.columns.map(column => {
-                    if (column.columnName === currentColumn.columnName) {
-                        return updatedCurrentColumn;
-                    } else if (column.columnName === newColumn.columnName) {
-                        return updatedNewColumn;
-                    }
-                    return column;
-                })
-            };
-            setUpdatedBoardData(updatedBoardDataa);
-            setTaskColumn(newColumnName);
-            setSelectedTask(prevTask => ({ ...prevTask, columnName: newColumnName }));
-        } else {
-            setTaskColumn(newColumnName);
-        }
+        const updatedBoardDataa = {
+            columns: activeBoard.columns.map(column => {
+                if (column.columnName === currentColumn.columnName) {
+                    return updatedCurrentColumn;
+                } else if (column.columnName === newColumn.columnName) {
+                    return updatedNewColumn;
+                }
+                return column;
+            })
+        };
+        setUpdatedBoardData(updatedBoardDataa);
+        setTaskColumn(newColumnName);
+        setSelectedTask(prevTask => ({ ...prevTask, columnName: newColumnName }));
+
     };
 
     const closeManageTasksModal = () => {
-        document.getElementById('manage_tasks_modal').close();
-        setIsTaskOpen(false);
-        setSelectedTask(null);
         if (updatedBoardData) {
             updateBoard(boardId, updatedBoardData);
         }
+        document.getElementById('manage_tasks_modal').close();
+        setIsTaskOpen(false);
+        setSelectedTask(null);
     };
 
     const openManageTasksModal = (task) => {

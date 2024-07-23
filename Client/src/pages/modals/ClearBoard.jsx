@@ -15,7 +15,7 @@ const ClearBoard = ({ id, closeClearBoardModal, actionType }) => {
 
     return (
         <dialog id={id} className="modal">
-            <div className="modal-box p-4">
+            <div className="modal-box rounded p-4">
                 <h3 className="font-bold text-lg capitalize">{actionContent.title}</h3>
                 <p className="mt-3">
                 {actionContent.content}

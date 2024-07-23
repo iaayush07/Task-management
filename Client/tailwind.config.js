@@ -24,6 +24,7 @@ export default {
           'primary': '#635fc7',
           'secondary': '#828fa3',
           'base-100': '#ffffff',
+          'base-300': '#eef3fb',
           'base-content': '#1f2937',
           'custom-background': '#e4ebfa',
           'neutral' : '#e4ebfa'
@@ -32,6 +33,7 @@ export default {
           'primary': '#635fc7',
           'secondary': '#828fa3',
           'base-100': '#2b2c37',
+          'base-300': '#242530',
           'base-content': '#ffffff',
           'custom-background': '#20212c',
           'neutral' : '#20212c'

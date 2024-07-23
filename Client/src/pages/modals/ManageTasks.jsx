@@ -25,7 +25,7 @@ const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard,
 
     return (
         <dialog id={id} className="modal" open={isTaskOpen}>
-            <div className="modal-box p-4">
+            <div className="modal-box rounded p-4">
                 <div className="flex justify-between items-center">
                     <h3 className="font-bold text-lg capitalize">{task.taskName}</h3>
                     <div className="dropdown dropdown-end">

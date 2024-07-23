@@ -51,7 +51,7 @@ const AddNewTask = ({ id, onClose }) => {
     // console.log(formik.errors);
     return (
         <dialog id={id} className="modal">
-            <div className="modal-box p-4">
+            <div className="modal-box rounded p-4">
                 <form onSubmit={formik.handleSubmit}>
                     <h3 className="font-bold text-lg capitalize">Add new Task</h3>
                     <label htmlFor="task-name" className="mt-3 capitalize block cursor-pointer text-secondary font-bold text-xs">
