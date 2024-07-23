@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
 const ThemeController = () => {
-    const [theme, setTheme] = useState('mytheme');
+    const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === 'mytheme' ? 'dark' : 'mytheme'));
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
   return (
-    <div className="mode-wrapper flex justify-center items-center ms-5 p-3 rounded">
+    <div className={`flex justify-center items-center ms-5 p-3 rounded bg-neutral`}>
       <span className='fa-solid fa-sun'></span>
       <input
         type="checkbox"

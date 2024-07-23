@@ -5,12 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {
-      primary: '#635fc7',
-      secondary: '#828fa3',
-      white: "#ffffff"
+    extend: {
+      colors: {
+        // primary: '#635fc7',
+        // secondary: '#828fa3',
+        customLight: '#e4ebfa',
+        customDark: '#20212c',
+      }
     },
-    extend: {},
   },
   plugins: [
     require('daisyui'),
@@ -18,14 +20,23 @@ export default {
   daisyui: {
     themes: [
       {
-        mytheme: {
+        light: {
           'primary': '#635fc7',
           'secondary': '#828fa3',
-          'base-100': '#ffffff', // Light theme background
-          'base-content': '#1f2937', // Light theme text
+          'base-100': '#ffffff',
+          'base-content': '#1f2937',
+          'custom-background': '#e4ebfa',
+          'neutral' : '#e4ebfa'
         },
+        dark: {
+          'primary': '#635fc7',
+          'secondary': '#828fa3',
+          'base-100': '#2b2c37',
+          'base-content': '#ffffff',
+          'custom-background': '#20212c',
+          'neutral' : '#20212c'
+        }
       },
-      'dark', // DaisyUI built-in dark theme
     ],
   },
 }

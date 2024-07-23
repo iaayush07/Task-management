@@ -107,9 +107,6 @@ input:checked + .slider:before {
 .error {
   color: #dc362e;
 }
-main {
-  background-color: #f4f7fd;
-}
 .board .column {
   width: 16.5rem;
 }
@@ -118,9 +115,6 @@ main {
 }
 .board .column .title {
   letter-spacing: 0.1rem;
-}
-.add-column-wrapper {
-  background-color: #f0f3fc;
 }
 .card:hover .card-title {
   color: #635fc7;
