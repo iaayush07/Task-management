@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard, handleTaskUpdate }) => {
+const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard, handleTaskUpdate, handleColumnChange, taskColumn }) => {
     useEffect(() => {
         if (isTaskOpen && task && task.taskName) {
             // console.log(task.subtasks[1]._id, "<=======manage task");
@@ -10,12 +10,17 @@ const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard,
     if (!isTaskOpen || !task || !task.taskName) {
         return null;
     }
+
     const handleSubtaskStatus = (subtaskId) => {
         const updatedSubtasks = task.subtasks.map(subtask => 
             subtask._id === subtaskId ? { ...subtask, status: subtask.status === 'completed' ? 'pending' : 'completed' } : subtask
         );
         const updatedTask = { ...task, subtasks: updatedSubtasks };
         handleTaskUpdate(updatedTask);
+    };
+
+    const handleColumnChangeEvent = (event) => {
+        handleColumnChange(task._id, event.target.value);
     };
 
     return (
@@ -33,28 +38,28 @@ const ManageTasks = ({ id, closeManageTasksModal, task, isTaskOpen, activeBoard,
                         </ul>
                     </div>
                 </div>
-                {
-                    task.description && (
-                        <p className='mt-3 text-secondary first-letter:capitalize text-sm'>{task?.description}</p>
-                    )
-                }
+                {task.description && (
+                    <p className='mt-3 text-secondary first-letter:capitalize text-sm'>{task?.description}</p>
+                )}
                 <div>
                     <h4 className="font-bold text-secondary text-sm mt-3">Subtasks ( 2 of {task.subtasks?.length})</h4>
                     {task.subtasks.map((subtask, index) => (
-                        // <div className="form-control subtask rounded p-2 bg-opacity-70 mt-2" key={index}>
-                            <label className="flex items-center cursor-pointer form-control subtask rounded p-2 bg-opacity-70 mt-2" key={index}>
-                                <input type="checkbox"
+                        <label className="flex items-center cursor-pointer form-control subtask rounded p-2 bg-opacity-70 mt-2" key={index}>
+                            <input type="checkbox"
                                 checked={subtask.status === 'completed'}
                                 className="checkbox rounded checkbox-xs checkbox-primary" 
-                                onChange={()=>handleSubtaskStatus(subtask?._id)} />
-                                <span className="label-text text-sm text-secondary ms-3">{subtask.subtaskName}</span>
-                            </label>
+                                onChange={() => handleSubtaskStatus(subtask?._id)} />
+                            <span className="label-text text-sm text-secondary ms-3">{subtask.subtaskName}</span>
+                        </label>
                     ))}
                 </div>
                 <h4 className="font-bold text-secondary text-sm mt-3">Current Status</h4>
                 <select
                     className="select select-bordered mt-2 w-full"
-                    name="selectedColumn">
+                    name="selectedColumn"
+                    value={taskColumn}
+                    onChange={handleColumnChangeEvent}
+                >
                     {
                         activeBoard?.columns?.map((column, index) => (
                             <option key={index} value={column.columnName}>{column.columnName}</option>

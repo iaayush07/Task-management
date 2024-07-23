@@ -131,9 +131,23 @@ main {
   font-weight: 500;
 }
 .subtask {
-  background-color: #f4f7fd;
+  background-color: #625fc74b;
   flex-direction: row !important;
+}
+.subtask .label-text {
+  color: #000000;
+}
+.subtask .checkbox {
+  background-color: white;
+  border: none;
 }
 .subtask .checkbox:checked+.label-text {
   text-decoration: line-through;
+  color: #828fa3;
+}
+.subtask.completed {
+  background-color: #f4f7fd;
+}
+.modal {
+  background-color: rgba(0,0,0, 0.4);
 }
