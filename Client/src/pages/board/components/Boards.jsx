@@ -10,6 +10,10 @@ const Boards = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [initialFormValues, setInitialFormValues] = useState(null);
 
+    // if (!activeBoard || !activeBoard.columns) {
+    //     return <div>Loading...</div>;
+    // }
+
     const openBoardModal = () => {
         setInitialFormValues({
             boardName: activeBoard?.boardName || '',
@@ -61,7 +65,7 @@ const Boards = () => {
 
     return (
         <React.Fragment>
-            {boards?.length ? (
+            {boards?.length && activeBoard ? (
                 <DragDropContext onDragEnd={onDragEnd}>
                     <div className='flex board'>
                         {activeBoard?.columns.map((column) => (

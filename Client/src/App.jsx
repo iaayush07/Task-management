@@ -14,7 +14,7 @@ function App() {
           <Sidebar />
           <div className='flex flex-col flex-grow overflow-hidden'>
             <Header />
-            <main className='flex flex-grow px-5 py-3 overflow-auto bg-neutral'>
+            <main className='flex flex-grow px-5 py-3 overflow-auto bg-neutral custom-scroll'>
               <Boards />
             </main>
           </div>

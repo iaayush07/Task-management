@@ -9,7 +9,25 @@ const Card = ({ task, activeBoard, boardId, updateBoard }) => {
 
     const handleTaskUpdate = (updatedTask) => {
         setSelectedTask(updatedTask);
-        console.log(selectedTask);
+
+        const currentColumn = activeBoard.columns.find(column =>
+            column.tasks.some(t => t._id === updatedTask._id)
+        );
+
+        const updatedCurrentColumn = {
+            ...currentColumn,
+            tasks: currentColumn.tasks.map(t =>
+                t._id === updatedTask._id ? updatedTask : t
+            )
+        };
+
+        const updatedBoardDataa = {
+            columns: activeBoard.columns.map(column =>
+                column.columnName === currentColumn.columnName ? updatedCurrentColumn : column
+            )
+        };
+
+        setUpdatedBoardData(updatedBoardDataa);
     };
 
     const handleColumnChange = (taskId, newColumnName) => {
