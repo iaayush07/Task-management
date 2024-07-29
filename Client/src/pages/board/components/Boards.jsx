@@ -2,27 +2,38 @@ import React, { useContext, useState, useEffect } from 'react';
 import Card from '../../../shared/pages/Card';
 import { BoardContext } from './../utility/services/BoardService';
 import AddNewBoard from '../../modals/AddNewBoard';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 const Boards = () => {
     const { boards, activeBoardId, updateBoard } = useContext(BoardContext);
-    const activeBoard = boards.find(board => board._id === activeBoardId);
     const [isModalOpen, setModalOpen] = useState(false);
     const [initialFormValues, setInitialFormValues] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-    // if (!activeBoard || !activeBoard.columns) {
-    //     return <div>Loading...</div>;
-    // }
+    useEffect(() => {
+        console.log('Boards:', boards);
+        console.log('Active Board ID:', activeBoardId);
+        setLoading(false);
+    }, [boards, activeBoardId]);
+
+    const activeBoard = boards.find(board => board._id === activeBoardId);
+
+    useEffect(() => {
+        console.log('Active Board:', activeBoard);
+        if (activeBoard) {
+            console.log('Active Board Columns:', activeBoard.columns);
+        }
+    }, [activeBoard]);
 
     const openBoardModal = () => {
         setInitialFormValues({
             boardName: activeBoard?.boardName || '',
-            columns: activeBoard?.columns.map(column => ({ 
+            columns: activeBoard?.columns.map(column => ({
                 columnName: column.columnName,
                 tasks: column.tasks.map(task => ({
                     taskName: task.taskName,
-                    description : task.description,
-                    subtasks : task.subtasks
+                    description: task.description,
+                    subtasks: task.subtasks
                 }))
             })) || [{ columnName: '', tasks: [] }],
             _id: activeBoardId
@@ -35,6 +46,7 @@ const Boards = () => {
     };
 
     const onDragEnd = (result) => {
+        console.log('Drag End:', result);
         const { source, destination } = result;
 
         // If no destination, exit
@@ -49,7 +61,8 @@ const Boards = () => {
         endColumn.tasks.splice(destination.index, 0, movedTask);
 
         const updatedBoard = {
-            columns: activeBoard.columns.map(column => 
+            ...activeBoard,
+            columns: activeBoard.columns.map(column =>
                 column.columnName === startColumn.columnName ? { ...startColumn } :
                 column.columnName === endColumn.columnName ? { ...endColumn } : column
             )
@@ -60,70 +73,56 @@ const Boards = () => {
 
     useEffect(() => {
         if (isModalOpen && initialFormValues) {
+            // Perform necessary actions when the modal opens
         }
     }, [isModalOpen, initialFormValues]);
 
+    if (loading || !boards.length || !activeBoard) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <React.Fragment>
-            {boards?.length && activeBoard ? (
-                <DragDropContext onDragEnd={onDragEnd}>
-                    <div className='flex board'>
-                        {activeBoard?.columns.map((column) => (
-                            <Droppable key={column.columnName} droppableId={column.columnName}>
-                                {(provided, snapshot) => (
-                                    <div
-                                        className={`column px-2 ${snapshot.isDraggingOver ? 'bg-base-300' : ''}`}
-                                        ref={provided.innerRef}
-                                        {...provided.droppableProps}
-                                    >
-                                        <div className="flex items-center">
-                                            <div className="title capitalize text-secondary text-sm mb-3 font-bold">
-                                                {column.columnName} ({column.tasks.length})
-                                            </div>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div className='flex board'>
+                    {activeBoard.columns.map((column) => (
+                        <Droppable key={column.columnName} droppableId={column.columnName}>
+                            {(provided, snapshot) => (
+                                <div
+                                    className={`column px-2 ${snapshot.isDraggingOver ? 'bg-base-300' : ''}`}
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                >
+                                    <div className="flex items-center">
+                                        <div className="title capitalize text-secondary text-sm mb-3 font-bold">
+                                            {column.columnName} ({column.tasks.length})
                                         </div>
-                                        {column?.tasks?.map((task, index) => (
-                                            <Draggable key={task._id} draggableId={task._id} index={index}>
-                                                {(provided,snapshot) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                        className={`${snapshot.isDragging ? 'bg-gray-300' : 'bg-base-100'}`}
-                                                    >
-                                                        <Card
-                                                            activeBoard={activeBoard}
-                                                            task={task}
-                                                            boardId={activeBoardId}
-                                                            key={task._id}
-                                                            updateBoard={updateBoard}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
                                     </div>
-                                )}
-                            </Droppable>
-                        ))}
-                        <div className="column">
-                            <div
-                                className="title rounded cursor-pointer text-secondary text-xl flex justify-center items-center h-full font-bold bg-base-300"
-                                onClick={openBoardModal}
-                            >
-                                + New column
-                            </div>
+                                    {column.tasks.map((task, index) => (
+                                        <Card
+                                            activeBoard={activeBoard}
+                                            task={task}
+                                            boardId={activeBoardId}
+                                            key={task._id}
+                                            updateBoard={updateBoard}
+                                            index={index}
+                                        />
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    ))}
+                    <div className="column">
+                        <div
+                            className="title rounded cursor-pointer text-secondary text-xl flex justify-center items-center h-full font-bold bg-base-300"
+                            onClick={openBoardModal}
+                        >
+                            + New column
                         </div>
                     </div>
-                </DragDropContext>
-            ) : (
-                <div className='flex flex-col flex-grow justify-center items-center'>
-                    <p className='text-secondary text-xl font-semibold'>
-                        This board is empty. Create a new column to get started.
-                    </p>
-                    <button className='bg-primary font-bold py-2 px-6 text-white rounded-3xl mt-3' onClick={openBoardModal}>+ Add Column</button>
                 </div>
-            )}
+            </DragDropContext>
             <AddNewBoard id="add_new_board_modal" isModalOpen={isModalOpen} initialFormValues={initialFormValues} onClose={closeBoardModal} />
         </React.Fragment>
     );
