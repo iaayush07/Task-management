@@ -5,41 +5,55 @@
 html,
 body {
   height: 100%;
+  overflow: hidden;
   margin: 0;
   font-family: "Inter", sans-serif;
   --mantine-font-family: "Inter", sans-serif;
 }
+
 #root {
   height: 100%;
 }
-*{
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.sidebar{
-  width: 250px;
+
+.sidebar {
+  min-width: 250px;
   border-right: 1px solid #e4ebfa;
 }
-.navbar li:hover{
+
+.sidebar li:hover {
   cursor: pointer;
   color: #635fc7 !important;
-  background-color: rgba(99,95,199, 0.2);
+  background-color: rgba(99, 95, 199, 0.2);
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.navbar li.active{
+
+.sidebar li.active {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   color: #fff !important;
   background-color: #635fc7 !important;
 }
-.mode-wrapper {
-  background-color: #e4ebfa ;
+
+.sidebar li.active:hover {
+  color: #fff !important;
+  background-color: #635fc7 !important;
 }
-header{
+
+.mode-wrapper {
+  background-color: #e4ebfa;
+}
+
+header {
   border-bottom: 1px solid #e4ebfa;
 }
+
 .switch {
   position: relative;
   display: inline-block;
@@ -47,7 +61,7 @@ header{
   height: 21px;
 }
 
-.switch input { 
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -77,15 +91,15 @@ header{
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #2196F3;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -98,4 +112,57 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.error {
+  color: #dc362e;
+}
+
+.board .column {
+  width: 16.5rem;
+}
+
+.board .column:not(:first-child) {
+  margin-left: 1.5rem;
+}
+
+.board .column .title {
+  letter-spacing: 0.1rem;
+}
+
+.card:hover .card-title {
+  color: #635fc7;
+}
+
+.dropdown-content.menu li div:hover {
+  background-color: transparent !important;
+  color: #000000 !important;
+  font-weight: 500;
+}
+
+.subtask {
+  background-color: #625fc74b;
+  flex-direction: row !important;
+}
+
+.subtask .label-text {
+  color: #000000;
+}
+
+.subtask .checkbox {
+  background-color: white;
+  border: none;
+}
+
+.subtask .checkbox:checked+.label-text {
+  text-decoration: line-through;
+  color: #828fa3;
+}
+
+.subtask.completed {
+  background-color: #f4f7fd;
+}
+
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
 }
