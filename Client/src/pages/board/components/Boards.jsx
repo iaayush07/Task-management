@@ -11,17 +11,17 @@ const Boards = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log('Boards:', boards);
-        console.log('Active Board ID:', activeBoardId);
+        // console.log('Boards:', boards);
+        // console.log('Active Board ID:', activeBoardId);
         setLoading(false);
     }, [boards, activeBoardId]);
 
     const activeBoard = boards.find(board => board._id === activeBoardId);
 
     useEffect(() => {
-        console.log('Active Board:', activeBoard);
+        // console.log('Active Board:', activeBoard);
         if (activeBoard) {
-            console.log('Active Board Columns:', activeBoard.columns);
+            // console.log('Active Board Columns:', activeBoard.columns);
         }
     }, [activeBoard]);
 
@@ -46,7 +46,7 @@ const Boards = () => {
     };
 
     const onDragEnd = (result) => {
-        console.log('Drag End:', result);
+        // console.log('Drag End:', result);
         const { source, destination } = result;
 
         // If no destination, exit

@@ -53,7 +53,7 @@ const AddNewBoard = ({ id, isModalOpen, initialFormValues, onClose }) => {
                 addBoardForm(boardData);
             }
             formik.resetForm();
-            console.log(formik.initialValues, "formik");
+            // console.log(formik.initialValues, "formik");
             onClose();
         }
     });

@@ -5,6 +5,5 @@ import boardReducer from './../services/boardSlice.js';
 export const store = configureStore({
     reducer: {
         boards: boardReducer,
-        // Add other reducers here
     }
 });
