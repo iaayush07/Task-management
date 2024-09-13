@@ -8,7 +8,7 @@ export const BoardProvider = ({ children }) => {
   const [activeBoardId, setActiveBoardId] = useState(null);
 
   const getBoards = () => {
-    axios.get('http://localhost:3000/api/boards')
+    axios.get('https://task-management-gilt-eight.vercel.app/api/boards')
       .then((res) => {
         setBoards(res.data);
         if (res.data.length > 0 && !activeBoardId) {
@@ -28,7 +28,7 @@ export const BoardProvider = ({ children }) => {
   const addBoardForm = (boardData) => {
     axios({
       method: 'post',
-      url: 'http://localhost:3000/api/boards/add',
+      url: 'https://task-management-gilt-eight.vercel.app/api/boards/add',
       data: boardData
     }).then(res => {
       // console.log("post call", res);
@@ -43,7 +43,7 @@ export const BoardProvider = ({ children }) => {
   const updateBoard = (boardId, updatedData) => {
     axios({
         method: 'put',
-        url: `http://localhost:3000/api/boards/${boardId}`,
+        url: `https://task-management-gilt-eight.vercel.app/api/boards/${boardId}`,
         data: updatedData
     }).then(res => {
       // console.log(res.data);
@@ -62,15 +62,15 @@ export const BoardProvider = ({ children }) => {
     switch (type) {
       case 'clear':
         actionMethod = 'put';
-        urlEndpoint = `http://localhost:3000/api/boards/${boardId}/clear`;
+        urlEndpoint = `https://task-management-gilt-eight.vercel.app/api/boards/${boardId}/clear`;
         break;
       case 'delete':
         actionMethod = 'delete';
-        urlEndpoint = `http://localhost:3000/api/boards/${boardId}/delete`;
+        urlEndpoint = `https://task-management-gilt-eight.vercel.app/api/boards/${boardId}/delete`;
         break;
       case 'reset':
         actionMethod = 'delete';
-        urlEndpoint = `http://localhost:3000/api/boards`;
+        urlEndpoint = `https://task-management-gilt-eight.vercel.app/api/boards`;
         break;
       default:
         console.error('Unknown action type:', type);
