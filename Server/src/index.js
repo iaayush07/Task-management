@@ -8,7 +8,7 @@ const PORT = 3000;
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/tasks-management');
-app.use(cors());
+app.use(cors({origin:'*'}));
 app.use(express.json());
 
 app.use('/api',boardRouter);
